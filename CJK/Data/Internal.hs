@@ -23,7 +23,7 @@ jyutpingToneP = char '1' *> pure Jyutping.HighLevel
 
 
 tonedPinyinP :: Parser Pinyin.Phone
-tonedPinyinP = liftA2 Pinyin.Phone (takeWhile1 (\c -> isAsciiUpper c || isAsciiLower c)) pinyinToneP
+tonedPinyinP = liftA2 Pinyin.Phone (takeWhile1 (\c -> isAsciiUpper c || isAsciiLower c || c == 'ü' || c == 'Ü')) pinyinToneP
 
 pinyinToneP :: Parser Pinyin.Tone
 pinyinToneP = char '1' *> pure Pinyin.Flat

@@ -16,12 +16,15 @@ import qualified CJK.Data.CEDICT as CEDICT
 -- successfully there is a 90% chance everything is working
 main :: IO ()
 main = do
-    checkNot $ isNothing $ DictionaryLikeData.cangjie '好'
-    checkNot $ isNothing $ NumericValues.numericValue '十'
-    checkNot $ length (RadicalStrokeCounts.unicode '好') == 0
-    checkNot $ length (Readings.mandarinBestEffort '好') == 0
-    checkNot $ length (Variants.traditionalVariants '电') == 0
-    checkNot $ length CEDICT.entries == 0
+    checkNot "DictionaryLikeData"  $ isNothing $ DictionaryLikeData.cangjie '好'
+    checkNot "NumericValues"       $ isNothing $ NumericValues.numericValue '十'
+    checkNot "RadicalStrokeCounts" $ length (RadicalStrokeCounts.unicode '好') == 0
+    checkNot "Readings"            $ length (Readings.mandarinBestEffort '好') == 0
+    checkNot "Variants"            $ length (Variants.traditionalVariants '电') == 0
+    checkNot "CEDICT"              $ length CEDICT.entries == 0
 
-checkNot :: Bool -> IO ()
-checkNot p = when p $ exitWith (ExitFailure 1)
+checkNot :: String -> Bool -> IO ()
+checkNot msg p = do
+    putStr (msg ++ ": ")
+    if p then putStrLn "failure" >> exitWith (ExitFailure 1)
+         else putStrLn "success"
