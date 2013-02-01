@@ -130,7 +130,7 @@ dictionaryLikes = parseLazy fileP contents
 
 
 fileP :: Parser DictionaryLikesMap
-fileP = fmap (foldr unionDictionaryLikesMap emptyDictionaryLikesMap) (lineP `manyTill` endOfInput)
+fileP = fmap (foldl' unionDictionaryLikesMap emptyDictionaryLikesMap) (lineP `manyTill` endOfInput)
 
 lineP :: Parser DictionaryLikesMap
 lineP = do { c <- charP <* skipSpace; dataP <- dictionaryLikeP c <* skipSpace; dataP <* skipTrueSpace <* lineTerminator }

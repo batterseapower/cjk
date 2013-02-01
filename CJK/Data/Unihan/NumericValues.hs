@@ -46,7 +46,7 @@ numericValues = parseLazy fileP contents
 
 
 fileP :: Parser NumericValuesMap
-fileP = fmap (foldr unionNumericValuesMap emptyNumericValuesMap) (lineP `manyTill` endOfInput)
+fileP = fmap (foldl' unionNumericValuesMap emptyNumericValuesMap) (lineP `manyTill` endOfInput)
 
 lineP :: Parser NumericValuesMap
 lineP = do { c <- charP <* skipSpace; dataP <- numericValueP c <* skipSpace; dataP <* skipTrueSpace <* lineTerminator }

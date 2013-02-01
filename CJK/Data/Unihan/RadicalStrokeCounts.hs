@@ -91,7 +91,7 @@ strokeCounts = parseLazy fileP contents
 
 
 fileP :: Parser StrokeCountsMap
-fileP = fmap (foldr unionStrokeCountsMap emptyStrokeCountsMap) (lineP `manyTill` endOfInput)
+fileP = fmap (foldl' unionStrokeCountsMap emptyStrokeCountsMap) (lineP `manyTill` endOfInput)
 
 lineP :: Parser StrokeCountsMap
 lineP = do { c <- charP <* skipSpace; dataP <- strokeCountP c <* skipSpace; dataP <* skipTrueSpace <* lineTerminator }

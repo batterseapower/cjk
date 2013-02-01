@@ -190,7 +190,7 @@ readings = parseLazy fileP contents
 
 
 fileP :: Parser ReadingsMap
-fileP = fmap (foldr unionReadingsMap emptyReadingsMap) (lineP `manyTill` endOfInput)
+fileP = fmap (foldl' unionReadingsMap emptyReadingsMap) (lineP `manyTill` endOfInput)
 
 lineP :: Parser ReadingsMap
 lineP = do { c <- charP <* skipSpace; dataP <- readingP c <* skipSpace; dataP <* skipTrueSpace <* lineTerminator }

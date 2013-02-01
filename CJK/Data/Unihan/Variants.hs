@@ -18,6 +18,7 @@ import Data.Attoparsec.Text
 import Data.Char
 import Data.Maybe
 import qualified Data.Map as M
+import Data.List
 
 import System.IO.Unsafe
 
@@ -81,7 +82,7 @@ variants = parseLazy fileP contents
 
 
 fileP :: Parser VariantsMap
-fileP = fmap (foldr unionVariantsMap emptyVariantsMap) (lineP `manyTill` endOfInput)
+fileP = fmap (foldl' unionVariantsMap emptyVariantsMap) (lineP `manyTill` endOfInput)
 
 lineP :: Parser VariantsMap
 lineP = do { c <- charP <* skipSpace; dataP <- variantP c <* skipSpace; dataP <* skipTrueSpace <* lineTerminator }
