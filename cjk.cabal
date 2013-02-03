@@ -44,3 +44,7 @@ test-suite tests
     main-is:         Tests.hs
     build-depends:     base
                      , cjk
+
+source-repository head
+    type:            git
+    location:        https://github.com/batterseapower/cjk.git
