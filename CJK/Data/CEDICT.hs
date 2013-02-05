@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings, PatternGuards #-}
 module CJK.Data.CEDICT (
-    Reading, showReading,
+    Reading, showReading, showReadingAccented,
     Word(..), showHeadWord,
     DefinitionToken(..), WordDefinition(..), Definition(..),
     entries
