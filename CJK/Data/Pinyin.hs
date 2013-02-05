@@ -60,7 +60,7 @@ fromAccented s = go [] Nothing $ Text.unpack $ Text.normalize Text.NFD s
                               _                         -> Just tone' -- Allow multiple tones of the same time, even if it is technically incorrect
 
 toAccented :: Phone -> Text.Text
-toAccented yin = Text.pack $ go $ Text.unpack $ sound yin
+toAccented yin = Text.normalize Text.NFC $ Text.pack $ go $ Text.unpack $ sound yin
   where go []                 = show (tone yin) -- All pinyin contain a vowel, so this can only happen when the pinyin is in fact invalid
         go (c:cs) | isVowel c = maybeToList (toneCombiningMark (tone yin)) ++ c:cs
                   | otherwise = c : go cs
