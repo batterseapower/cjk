@@ -1,5 +1,5 @@
 name:                cjk
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Data about Chinese, Japanese and Korean characters and languages
 description:         A Haskell interface to the most important information from the Unicode Unihan character
                      database and CC-CEDICT free Chinese-English dictionary.
