@@ -39,7 +39,7 @@ unionNumericValuesMap = M.unionWith (error "unionNumericValuesMap: impossible") 
 
 {-# NOINLINE contents #-}
 contents :: TextL.Text
-contents = unsafePerformIO (readUTF8File "data/Unihan/Unihan_NumericValues.txt")
+contents = unsafePerformIO (readUTF8DataFile "data/Unihan/Unihan_NumericValues.txt")
 
 numericValues :: NumericValuesMap
 numericValues = parseLazy fileP contents

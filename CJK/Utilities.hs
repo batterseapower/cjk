@@ -13,6 +13,13 @@ import qualified Data.Text.Lazy.Encoding as TextL
 import qualified Data.Attoparsec.Text as DAT
 import qualified Data.Attoparsec.Text.Lazy as DATL
 
+import Paths_cjk
+
+
+readUTF8DataFile :: FilePath -> IO TextL.Text
+readUTF8DataFile fp = do
+    full_fp <- getDataFileName fp
+    readUTF8File full_fp
 
 readUTF8File :: FilePath -> IO TextL.Text
 readUTF8File = fmap TextL.decodeUtf8 . BS.readFile

@@ -183,7 +183,7 @@ unionReadingsMap (RMS a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12) (RMS b1 b2 b3 b4 b
 
 {-# NOINLINE contents #-}
 contents :: TextL.Text
-contents = unsafePerformIO (readUTF8File "data/Unihan/Unihan_Readings.txt")
+contents = unsafePerformIO (readUTF8DataFile "data/Unihan/Unihan_Readings.txt")
 
 readings :: ReadingsMap
 readings = parseLazy fileP contents

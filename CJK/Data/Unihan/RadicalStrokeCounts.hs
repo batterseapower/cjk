@@ -84,7 +84,7 @@ unionStrokeCountsMap (SMS a1 a2 a3 a4 a5 a6) (SMS b1 b2 b3 b4 b5 b6)
 
 {-# NOINLINE contents #-}
 contents :: TextL.Text
-contents = unsafePerformIO (readUTF8File "data/Unihan/Unihan_RadicalStrokeCounts.txt")
+contents = unsafePerformIO (readUTF8DataFile "data/Unihan/Unihan_RadicalStrokeCounts.txt")
 
 strokeCounts :: StrokeCountsMap
 strokeCounts = parseLazy fileP contents

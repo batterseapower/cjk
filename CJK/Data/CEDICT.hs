@@ -105,7 +105,7 @@ instance Show Definition where
 
 {-# NOINLINE contents #-}
 contents :: TextL.Text
-contents = unsafePerformIO (readUTF8File "data/cedict_1_0_ts_utf-8_mdbg.txt")
+contents = unsafePerformIO (readUTF8DataFile "data/cedict_1_0_ts_utf-8_mdbg.txt")
 
 entries :: [Definition]
 entries = parseLazy fileP contents
