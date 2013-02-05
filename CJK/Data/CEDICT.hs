@@ -33,7 +33,10 @@ import Prelude hiding (takeWhile)
 type Reading = [Either Text.Text Phone]
 
 showReading :: Reading -> String
-showReading yins = "[" ++ intercalate " " (map (either Text.unpack show) yins) ++ "]"
+showReading yins = intercalate " " (map (either Text.unpack show) yins)
+
+showReadingAccented :: Reading -> String
+showReadingAccented yins = intercalate " " (map (either Text.unpack (Text.unpack . toAccented)) yins)
 
 
 data Word = Word {
@@ -42,13 +45,15 @@ data Word = Word {
     reading     :: Reading
   }
 
+bracketed s = "[" ++ s ++ "]"
+
 instance Show Word where
-    show word | simplified word == traditional word = traditional word                           ++ showReading (reading word)
-              | otherwise                           = traditional word ++ "|" ++ simplified word ++ showReading (reading word)
+    show word | simplified word == traditional word = traditional word                           ++ bracketed (showReading (reading word))
+              | otherwise                           = traditional word ++ "|" ++ simplified word ++ bracketed (showReading (reading word))
 
 -- | Show a word as in the head of a dictionary entry
 showHeadWord :: Word -> String
-showHeadWord word = traditional word ++ " " ++ simplified word ++ " " ++ showReading (reading word)
+showHeadWord word = traditional word ++ " " ++ simplified word ++ " " ++ bracketed (showReading (reading word))
 
 mkWord :: [Char] -> [Char] -> Reading -> Word
 -- Fix problems in dictionary:
@@ -66,7 +71,7 @@ mkWord trad simp yins
       -- Check for 市 suffix which is missing in yins in examples like 鹿泉市
       | ntrad == nyins + 1, '市'                        <- last trad -> Word trad simp (yins ++ [Right (Phone "shi" Falling)])
       -- Last-ditch check for an unhandled error
-      | ntrad /= nyins -> error $ "mkWord: differing numbers of characters and readings (" ++ show trad ++ " vs. " ++ showReading yins ++ ")"
+      | ntrad /= nyins -> error $ "mkWord: differing numbers of characters and readings (" ++ show trad ++ " vs. " ++ bracketed (showReading yins) ++ ")"
       | otherwise      -> Word trad simp yins
   where ntrad = length trad
         nsimp = length simp
