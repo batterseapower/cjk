@@ -100,7 +100,7 @@ toAccented yin = Text.normalize Text.NFC $ Text.pack $ go $ Text.unpack $ sound 
 
         isO 'o' = True
         isO 'O' = True
-        iso _   = False
+        isO _   = False
 
         isU 'u' = True
         isU 'U' = True
