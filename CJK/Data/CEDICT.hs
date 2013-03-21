@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings, PatternGuards #-}
 module CJK.Data.CEDICT (
-    Reading, showReading, showReadingAccented,
+    Reading, showReading, showSpacelessReading, showReadingAccented, showSpacelessReadingAccented,
     Word(..), showHeadWord,
     DefinitionToken(..), WordDefinition(..), Definition(..),
     entries
@@ -35,8 +35,14 @@ type Reading = [Either Text.Text Phone]
 showReading :: Reading -> String
 showReading yins = intercalate " " (map (either Text.unpack show) yins)
 
+showSpacelessReading :: Reading -> String
+showSpacelessReading yins = concat (map (either Text.unpack show) yins)
+
 showReadingAccented :: Reading -> String
 showReadingAccented yins = intercalate " " (map (either Text.unpack (Text.unpack . toAccented)) yins)
+
+showSpacelessReadingAccented :: Reading -> String
+showSpacelessReadingAccented yins = concat (map (either Text.unpack (Text.unpack . toAccented)) yins)
 
 
 data Word = Word {
