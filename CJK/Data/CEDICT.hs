@@ -51,6 +51,7 @@ data Word = Word {
     reading     :: Reading
   }
 
+bracketed :: String -> String
 bracketed s = "[" ++ s ++ "]"
 
 instance Show Word where
