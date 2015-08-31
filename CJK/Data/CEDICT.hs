@@ -27,7 +27,7 @@ import Data.Attoparsec.Text.Lazy
 
 import System.IO.Unsafe
 
-import Prelude hiding (takeWhile)
+import Prelude hiding (takeWhile, Word)
 
 
 type Reading = [Either Text.Text Phone]
